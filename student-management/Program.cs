@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using student_management.Services;
 using test_server.Data;
+using student_management.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,9 @@ builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 
