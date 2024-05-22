@@ -12,8 +12,8 @@ using test_server.Data;
 namespace student_management.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240517110650_Initial")]
-    partial class Initial
+    [Migration("20240521053940_test")]
+    partial class test
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,7 +44,7 @@ namespace student_management.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("student_management.Models.User", b =>
+            modelBuilder.Entity("student_management.Models.Management", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -64,7 +64,45 @@ namespace student_management.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Managements");
+                });
+
+            modelBuilder.Entity("student_management.Models.Parent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Parents");
+                });
+
+            modelBuilder.Entity("student_management.Models.Student", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Students");
                 });
 #pragma warning restore 612, 618
         }

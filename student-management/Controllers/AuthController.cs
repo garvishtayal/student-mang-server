@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using student_management.Models;
 using student_management.Services;
@@ -16,21 +17,21 @@ namespace student_management.Controllers
             _authService = authService;
         }
 
-        [HttpPost("signin")]
+        [HttpPost("login")]
         public async Task<IActionResult> SignIn([FromBody] LoginModel model)
         {
             var result = await _authService.SignInAsync(model);
-            if (result.Succeeded)
+            if (result.Success)
             {
-                return Ok(new { Message = "Sign-in successful" });
+                return Ok(result);
             }
 
-            return Unauthorized(result.Errors);
+            return Unauthorized(result);
         }
 
         //Only admins will be able to access this route
-        //[Authorize(Roles = "Admin")]
-        [HttpPost("admin/addUser")]
+        
+        [HttpPost("admin/addUser"), Authorize(Roles = "admin")]
         public async Task<IActionResult> AddUser([FromBody] RegisterModel model)
         {
             var result = await _authService.AddUserAsync(model);
@@ -49,6 +50,7 @@ public class LoginModel
 {
     public string Email { get; set; }
     public string Password { get; set; }
+    public string Role { get; set; }
 }
 
 public class RegisterModel
@@ -56,4 +58,11 @@ public class RegisterModel
     public string Email { get; set; }
     public string Password { get; set; }
     public string Role { get; set; }
+    public string StudentMail { get; set; }
+}
+public class AuthResult
+{
+    public bool Success { get; set; }
+    public string Message { get; set; }
+    public string Token { get; set; }
 }

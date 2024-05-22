@@ -10,7 +10,9 @@ namespace test_server.Data
         {
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<Management> Managements { get; set; }
         public DbSet<Course> Courses { get; set; }
+        public DbSet<Parent> Parents { get; set; }
+        public DbSet<Student> Students { get; set; }
     }
 }

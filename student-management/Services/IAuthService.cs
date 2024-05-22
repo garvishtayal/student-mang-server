@@ -6,7 +6,7 @@ namespace student_management.Services
 {
     public interface IAuthService
     {
-        Task<IdentityResult> SignInAsync(LoginModel model);
+        Task<AuthResult> SignInAsync(LoginModel model);
         Task<IdentityResult> AddUserAsync(RegisterModel model);
     }
 }

@@ -134,3 +134,8 @@ C:\Users\Tayal\Desktop\dotnet\student-management\student-management\obj\Debug\ne
 C:\Users\Tayal\Desktop\dotnet\student-management\student-management\obj\Debug\net8.0\student-management.pdb
 C:\Users\Tayal\Desktop\dotnet\student-management\student-management\obj\Debug\net8.0\student-management.genruntimeconfig.cache
 C:\Users\Tayal\Desktop\dotnet\student-management\student-management\obj\Debug\net8.0\ref\student-management.dll
+C:\Users\Tayal\Desktop\dotnet\student-management\student-management\bin\Debug\net8.0\student-management.staticwebassets.runtime.json
+C:\Users\Tayal\Desktop\dotnet\student-management\student-management\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Tayal\Desktop\dotnet\student-management\student-management\bin\Debug\net8.0\Scrutor.dll
+C:\Users\Tayal\Desktop\dotnet\student-management\student-management\bin\Debug\net8.0\Swashbuckle.AspNetCore.Filters.dll
+C:\Users\Tayal\Desktop\dotnet\student-management\student-management\bin\Debug\net8.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll

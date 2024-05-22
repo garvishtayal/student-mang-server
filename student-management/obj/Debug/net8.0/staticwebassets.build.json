@@ -1,11 +1,19 @@
 {
   "Version": 1,
-  "Hash": "5hI9v/+/kxK2WZootkauDMJS57yVhv2if6w01Gjev7A=",
+  "Hash": "LTi3ZGIwSckqJpxzGmAhnqVOnlbUSZsystSQ3eNc8bo=",
   "Source": "student-management",
   "BasePath": "_content/student-management",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "student-management\\wwwroot",
+      "Source": "student-management",
+      "ContentRoot": "C:\\Users\\Tayal\\Desktop\\dotnet\\student-management\\student-management\\wwwroot\\",
+      "BasePath": "_content/student-management",
+      "Pattern": "**"
+    }
+  ],
   "Assets": []
 }
