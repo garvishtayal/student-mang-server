@@ -87,6 +87,47 @@ namespace student_management.Services
 
             return IdentityResult.Success;
         }
+        public async Task<AuthResult> ValidateTokenAsync(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes("your_secret_key_here_test_key_123xyz");
+
+            try
+            {
+                var validationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = true,
+                    ValidIssuer = "your_issuer_here",
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+                };
+
+                tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
+
+                // Cast to JwtSecurityToken to access Claims
+                var jwtToken = validatedToken as JwtSecurityToken;
+
+                if (jwtToken == null)
+                {
+                    throw new SecurityTokenException("Invalid token");
+                }
+
+                var roleClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "role")?.Value;
+
+                // Perform any additional checks on the roleClaim if needed
+
+                return new AuthResult { Success = true, Message = roleClaim };
+            }
+
+            catch (Exception ex)
+            {
+                // Log the error to the console or a logging framework
+                Console.WriteLine($"Token validation failed: {ex.Message}");
+                return new AuthResult { Success = false, Message = $"Invalid token: {ex.Message}" };
+            }
+        }
     }
 
 

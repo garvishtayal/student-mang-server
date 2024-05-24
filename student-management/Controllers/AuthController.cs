@@ -31,7 +31,7 @@ namespace student_management.Controllers
 
         //Only admins will be able to access this route
         
-        [HttpPost("admin/addUser"), Authorize(Roles = "admin")]
+        [HttpPost("admin/addUser"), Authorize(Roles = "admin,teacher")]
         public async Task<IActionResult> AddUser([FromBody] RegisterModel model)
         {
             var result = await _authService.AddUserAsync(model);
@@ -41,6 +41,17 @@ namespace student_management.Controllers
             }
 
             return BadRequest(result.Errors);
+        }
+        [HttpPost("validate")]
+        public async Task<IActionResult> ValidateToken([FromBody] TokenModel tokenModel)
+        {
+            var result = await _authService.ValidateTokenAsync(tokenModel.Token);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return Unauthorized(new { Message = result.Message });
         }
     }
 }
@@ -64,5 +75,9 @@ public class AuthResult
 {
     public bool Success { get; set; }
     public string Message { get; set; }
+    public string Token { get; set; }
+}
+public class TokenModel
+{
     public string Token { get; set; }
 }
