@@ -128,6 +128,13 @@ namespace student_management.Services
                 return new AuthResult { Success = false, Message = $"Invalid token: {ex.Message}" };
             }
         }
+
+        public async Task<IEnumerable<Student>> GetAllStudentEmails()
+        {
+            return await _context.Students.ToListAsync();
+        }
+
+
     }
 
 

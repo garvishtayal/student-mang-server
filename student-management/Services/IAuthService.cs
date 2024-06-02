@@ -9,5 +9,6 @@ namespace student_management.Services
         Task<AuthResult> SignInAsync(LoginModel model);
         Task<IdentityResult> AddUserAsync(RegisterModel model);
         Task<AuthResult> ValidateTokenAsync(string token);
+        Task<IEnumerable<Student>> GetAllStudentEmails();
     }
 }

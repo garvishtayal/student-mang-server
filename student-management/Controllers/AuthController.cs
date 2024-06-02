@@ -53,6 +53,13 @@ namespace student_management.Controllers
 
             return Unauthorized(new { Message = result.Message });
         }
+
+        [HttpGet("getAllStudents"), Authorize(Roles = "admin,teacher")]
+        public async Task<IActionResult> GetAllStudentParentEmails()
+        {
+            var emails = await _authService.GetAllStudentEmails();
+            return Ok(emails);
+        }
     }
 }
 

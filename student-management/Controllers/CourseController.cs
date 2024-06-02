@@ -54,5 +54,48 @@ namespace student_management.Controllers
             }
             return NoContent();
         }
+
+        [HttpPost("assign"), Authorize(Roles = "admin,teacher")]
+        public async Task<ActionResult> AssignCourse([FromBody] AssignModel assignModel)
+        {
+            if (assignModel == null || string.IsNullOrEmpty(assignModel.StudentId) || assignModel.CourseId == null || !assignModel.CourseId.Any())
+            {
+                return BadRequest("Invalid assignment data.");
+            }
+
+            var success = await _courseService.AssignCoursesToStudentAsync(assignModel.StudentId, assignModel.CourseId);
+
+            if (!success)
+            {
+                return NotFound("One or more courses or the student were not found.");
+            }
+
+            return Ok(new { message = "Courses assigned successfully." });
+
+        }
+        [HttpPost("assignedCourses")]
+        public async Task<ActionResult> GetAssignedCourses([FromBody] GetCoursesRequest model)
+        {
+            var result = await _courseService.AssignedCourses(model.Email);
+            if (result.Succeeded)
+            {
+                return Ok(result.Courses);
+            }
+
+            return BadRequest(result.Message);
+
+        }
+
     }
+}
+
+
+public class AssignModel
+{
+    public string StudentId { get; set; }
+    public List<string> CourseId { get; set; }
+}
+public class GetCoursesRequest
+{
+    public string Email { get; set; }
 }

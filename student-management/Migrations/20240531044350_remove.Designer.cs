@@ -12,8 +12,8 @@ using test_server.Data;
 namespace student_management.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240521053940_test")]
-    partial class test
+    [Migration("20240531044350_remove")]
+    partial class remove
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -81,7 +81,12 @@ namespace student_management.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
 
                     b.ToTable("Parents");
                 });
@@ -103,6 +108,57 @@ namespace student_management.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("student_management.Models.Student_Course", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CourseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Student_Courses");
+                });
+
+            modelBuilder.Entity("student_management.Models.Parent", b =>
+                {
+                    b.HasOne("student_management.Models.Student", "StudentNavigation")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StudentNavigation");
+                });
+
+            modelBuilder.Entity("student_management.Models.Student_Course", b =>
+                {
+                    b.HasOne("student_management.Models.Course", "CourseNavigation")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("student_management.Models.Student", "StudentNavigation")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CourseNavigation");
+
+                    b.Navigation("StudentNavigation");
                 });
 #pragma warning restore 612, 618
         }

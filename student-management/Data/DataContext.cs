@@ -14,5 +14,6 @@ namespace test_server.Data
         public DbSet<Course> Courses { get; set; }
         public DbSet<Parent> Parents { get; set; }
         public DbSet<Student> Students { get; set; }
+        public DbSet<Student_Course> Student_Courses { get; set; }
     }
 }
